@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" class=" "><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Sensor | Elektra</title>
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/controllers_angular.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/elektra_styles.css" media="screen" title="no title" charset="utf-8">
+
+    <!-- Custom Theme Style -->
+    <link href="css/custom.css" rel="stylesheet">
+  <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;box-sizing: content-box;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style><style type="text/css"></style>
+
+  <!-- jQuery -->
+  <script src="vendors/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- FastClick -->
+  <script src="vendors/fastclick/lib/fastclick.js"></script>
+  <!-- NProgress -->
+  <script src="vendors/nprogress/nprogress.js"></script>
+  <!-- Chart.js -->
+  <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+  <!-- jQuery Sparklines -->
+  <script src="vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+  <!-- easy-pie-chart -->
+  <script src="vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+  <!-- bootstrap-progressbar -->
+  <script src="vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+
+  <!-- Custom Theme Scripts -->
+  <script src="js/custom.js"></script>
+
+  <!-- gauge.js -->
+  <script src="vendors/bernii/gauge.js/dist/gauge.min.js"></script>
+
+  <script src="js/Highcharts-4.2.6/js/highcharts.js"></script>
+  <script src="js/Highcharts-4.2.6/js/highcharts-more.js"></script>
+
+
+</head>
+
+<body class="nav-md">
+    <div class="container body" ng-app="elektra">
+      <div class="main_container">
+
+        <div ng-include="'nav.html'"></div>
+
+        <!-- page content -->
+        <div class="right_col" role="main" ng-controller="sensor">
+
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Panel General del <b>{{ current_sensor }}</b></h3>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="">
+                  <div class="x_content" >
+                    <br>
+                    <div class="row">
+
+                      <div class="col-md-12">
+                        <div class="row top_tiles" style="margin: 10px 0;">
+                          <div class="col-md-8">
+                            <div class="x_panel">
+
+                              <div class="x_title animated flipInY">
+                                <span id="mota" style="color: #1abb9c;font-size: 2em;font-weight: bold;"> {{ current_sensor }} </span>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                  </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                              <div class="x_content">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <h3>Ubicación: <span id="aula"> {{ sensor.place }}</span></h3>
+                                    <h3>Estado: <span id="estado"> {{ sensor.state }}</span></h3>
+                                    <h3>Última Actualización:<span id="ultima_actualizacion"> {{ sensor.last_update_time }}</span></h3>
+                                    <br>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <button type="button" class="btn btn-success pull-right">Encender</button>
+                                  <button type="button" class="btn btn-danger pull-right">Apagar</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4">
+                            <div class="x_panel" style="min-width: 351px;">
+                              <div class="x_title animated flipInY">
+                                <ul class="nav navbar-right panel_toolbox">
+                                  <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                  </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                              <div class="x_content">
+                                <!-- Grafico Gauge Caja Mota -->
+                                <div style="text-align: center; margin-bottom: 17px">
+                                  <h3>Última Medición Eléctrica</h3>
+                                    <div class="col-md-8 col-md-offset-2">
+                                      <div class="sidebar-widget">
+                                        <canvas width="150" height="95" id="foo" class="" style="width: 160px; min-height: 110px;"></canvas>
+                                        <div class="goal-wrapper">
+                                          <span id="gauge-text" class="gauge-value pull-left">320kw</span>
+                                          <span class="gauge-value pull-left">kw</span>
+                                          <span id="goal-text" class="goal-value pull-right">500kw</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+
+
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <!--<div class="dashboard_graph x_panel">
+                          <div class="row x_title">
+                            <div class="col-md-6">
+                              <h3>Medición Consumo Período<small><br> Medición de consumo eléctrico según período</small></h3>
+                            </div>
+                            <div class="col-md-6">
+                              <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                <span>April 16, 2016 - May 15, 2016</span> <b class="caret"></b>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="x_content">
+                            <div class="demo-container" style="height:250px">
+                              <div id="placeholder3xx3" class="demo-placeholder" style="width: 100%; height: 250px; padding: 0px; position: relative;"><canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1043px; height: 250px;" width="1043" height="250"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 115px; top: 234px; left: 15px; text-align: center;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 115px; top: 234px; left: 142px; text-align: center;">2</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 115px; top: 234px; left: 269px; text-align: center;">4</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 115px; top: 234px; left: 396px; text-align: center;">6</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 115px; top: 234px; left: 524px; text-align: center;">8</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 115px; top: 234px; left: 648px; text-align: center;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 115px; top: 234px; left: 775px; text-align: center;">12</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 115px; top: 234px; left: 902px; text-align: center;">14</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 115px; top: 234px; left: 1029px; text-align: center;">16</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 222px; left: 7px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 194px; left: 7px; text-align: right;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 166px; left: 1px; text-align: right;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 139px; left: 1px; text-align: right;">15</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 111px; left: 1px; text-align: right;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 83px; left: 1px; text-align: right;">25</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 56px; left: 1px; text-align: right;">30</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 28px; left: 1px; text-align: right;">35</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 1px; left: 1px; text-align: right;">40</div></div></div><canvas class="flot-overlay" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1043px; height: 250px;" width="1043" height="250"></canvas><div class="legend"><div style="position: absolute; width: 78px; height: 15px; top: 13px; right: 13px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div><table style="position:absolute;top:13px;right:13px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(38,185,154);overflow:hidden"></div></div></td><td class="legendLabel">Registrations</td></tr></tbody></table></div></div>
+                            </div>
+                          </div>
+                        </div>
+                      -->
+                      <div class="x_panel">
+                        <div class="x_title">
+                          <h2>Consumo medido en tiempo real</h2>
+                            <div class="buttons-onoff">
+                              <label id="onbtn" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <button type="button" class="btn btn-success" name="on" value="on" onclick="on();">On</button>
+                              </label>
+                              <label id="offbtn" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <button type="button" class="btn btn-danger" name="off" value="off" onclick="off();">Off</button>
+                              </label>
+                            </div>
+                          <div class="clearfix"></div>
+                        </div>
+                          <div class="x_content">
+                            <div id="corriente_chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <div ng-include="'footer.html'"></div>
+
+      </div>
+    </div>
+
+
+    <!-- data para cargar los graficos -->
+    <script src="js/chart_data.js"></script>
+    <script src="js/chart-last-medition.js"></script>
+
+</body>
+</html>

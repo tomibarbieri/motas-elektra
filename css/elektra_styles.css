@@ -11,3 +11,19 @@
 #botones_aulas{
   font-size:1.4em;
 }
+
+.buttons-onoff{
+  float: right;
+}
+
+.white-link {
+  color: white;
+}
+
+.motas-div:hover {
+  background-color: #169F85;
+}
+
+.aulas-div:hover {
+  background-color: #31b0d5;
+}

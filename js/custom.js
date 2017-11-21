@@ -4,34 +4,30 @@
  * and open the template in the editor.
  */
 
-var URL = window.location.href.split('?')[0],
-    $BODY = $('body'),
-    $MENU_TOGGLE = $('#menu_toggle'),
-    $SIDEBAR_MENU = $('#sidebar-menu'),
-    $SIDEBAR_FOOTER = $('.sidebar-footer'),
-    $LEFT_COL = $('.left_col'),
-    $RIGHT_COL = $('.right_col'),
-    $NAV_MENU = $('.nav_menu'),
-    $FOOTER = $('footer');
 
 // Sidebar
 $(document).ready(function() {
+
+setTimeout(function(){
+
+    console.log("tomson");
+
     // TODO: This is some kind of easy fix, maybe we can improve this
     var setContentHeight = function () {
         // reset height
-        $RIGHT_COL.css('min-height', $(window).height());
+        $('.right_col').css('min-height', $(window).height());
 
-        var bodyHeight = $BODY.height(),
-            leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
+        var bodyHeight = $('body').height(),
+            leftColHeight = $('.left_col').eq(1).height() + $('.sidebar-footer').height(),
             contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
 
         // normalize content
-        contentHeight -= $NAV_MENU.height() + $FOOTER.height();
+        contentHeight -= $('.nav_menu').height() + $('footer').height();
 
-        $RIGHT_COL.css('min-height', contentHeight);
+        $('.right_col').css('min-height', contentHeight);
     };
 
-    $SIDEBAR_MENU.find('a').on('click', function(ev) {
+    $('#sidebar-menu').find('a').on('click', function(ev) {
         var $li = $(this).parent();
 
         if ($li.is('.active')) {
@@ -42,10 +38,10 @@ $(document).ready(function() {
         } else {
             // prevent closing menu if we are on child menu
             if (!$li.parent().is('.child_menu')) {
-                $SIDEBAR_MENU.find('li').removeClass('active');
-                $SIDEBAR_MENU.find('li ul').slideUp();
+                $('#sidebar-menu').find('li').removeClass('active');
+                $('#sidebar-menu').find('li ul').slideUp();
             }
-            
+
             $li.addClass('active');
 
             $('ul:first', $li).slideDown(function() {
@@ -55,18 +51,18 @@ $(document).ready(function() {
     });
 
     // toggle small or large menu
-    $MENU_TOGGLE.on('click', function() {
-        if ($BODY.hasClass('nav-md')) {
-            $BODY.removeClass('nav-md').addClass('nav-sm');
+    $('#menu_toggle').on('click', function() {
+        if ($('body').hasClass('nav-md')) {
+            $('body').removeClass('nav-md').addClass('nav-sm');
 
-            if ($SIDEBAR_MENU.find('li').hasClass('active')) {
-                $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
+            if ($('#sidebar-menu').find('li').hasClass('active')) {
+                $('#sidebar-menu').find('li.active').addClass('active-sm').removeClass('active');
             }
         } else {
-            $BODY.removeClass('nav-sm').addClass('nav-md');
+            $('body').removeClass('nav-sm').addClass('nav-md');
 
-            if ($SIDEBAR_MENU.find('li').hasClass('active-sm')) {
-                $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
+            if ($('#sidebar-menu').find('li').hasClass('active-sm')) {
+                $('#sidebar-menu').find('li.active-sm').addClass('active').removeClass('active-sm');
             }
         }
 
@@ -74,16 +70,16 @@ $(document).ready(function() {
     });
 
     // check active menu
-    $SIDEBAR_MENU.find('a[href="' + URL + '"]').parent('li').addClass('current-page');
+    $('#sidebar-menu').find('a[href="' + window.location.href.split('?')[0] + '"]').parent('li').addClass('current-page');
 
-    $SIDEBAR_MENU.find('a').filter(function () {
-        return this.href == URL;
+    $('#sidebar-menu').find('a').filter(function () {
+        return this.href == window.location.href.split('?')[0];
     }).parent('li').addClass('current-page').parents('ul').slideDown(function() {
         setContentHeight();
     }).parent().addClass('active');
 
     // recompute content when resizing
-    $(window).smartresize(function(){  
+    $(window).smartresize(function(){
         setContentHeight();
     });
 
@@ -95,6 +91,9 @@ $(document).ready(function() {
             mouseWheel:{ preventDefault: true }
         });
     }
+
+}, 2000);
+
 });
 // /Sidebar
 
@@ -104,15 +103,15 @@ $(document).ready(function() {
         var $BOX_PANEL = $(this).closest('.x_panel'),
             $ICON = $(this).find('i'),
             $BOX_CONTENT = $BOX_PANEL.find('.x_content');
-        
+
         // fix for some div with hardcoded fix class
         if ($BOX_PANEL.attr('style')) {
             $BOX_CONTENT.slideToggle(200, function(){
                 $BOX_PANEL.removeAttr('style');
             });
         } else {
-            $BOX_CONTENT.slideToggle(200); 
-            $BOX_PANEL.css('height', 'auto');  
+            $BOX_CONTENT.slideToggle(200);
+            $BOX_PANEL.css('height', 'auto');
         }
 
         $ICON.toggleClass('fa-chevron-up fa-chevron-down');
@@ -246,9 +245,9 @@ if (typeof NProgress != 'undefined') {
 
 /**
  * Resize function without multiple trigger
- * 
+ *
  * Usage:
- * $(window).smartresize(function(){  
+ * $(window).smartresize(function(){
  *     // code here
  * });
  */
@@ -263,7 +262,7 @@ if (typeof NProgress != 'undefined') {
             function delayed () {
                 if (!execAsap)
                     func.apply(obj, args);
-                timeout = null; 
+                timeout = null;
             }
 
             if (timeout)
@@ -271,11 +270,11 @@ if (typeof NProgress != 'undefined') {
             else if (execAsap)
                 func.apply(obj, args);
 
-            timeout = setTimeout(delayed, threshold || 100); 
+            timeout = setTimeout(delayed, threshold || 100);
         };
     };
 
-    // smartresize 
+    // smartresize
     jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
 })(jQuery,'smartresize');

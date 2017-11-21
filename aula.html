@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class=" "><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Aula | Elektra</title>
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/controllers_angular.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="css/custom.css" rel="stylesheet">
+  <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;box-sizing: content-box;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style><style type="text/css"></style>
+
+  <!-- jQuery -->
+  <script src="vendors/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- FastClick -->
+  <script src="vendors/fastclick/lib/fastclick.js"></script>
+  <!-- NProgress -->
+  <script src="vendors/nprogress/nprogress.js"></script>
+  <!-- Chart.js -->
+  <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+  <!-- jQuery Sparklines -->
+  <script src="vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+  <!-- easy-pie-chart -->
+  <script src="vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+  <!-- bootstrap-progressbar -->
+  <script src="vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+
+  <!-- Custom Theme Scripts -->
+  <script src="js/custom.js"></script>
+
+  <!-- gauge.js -->
+  <script src="vendors/bernii/gauge.js/dist/gauge.min.js"></script>
+</head>
+
+<body class="nav-md">
+    <div class="container body" ng-app="elektra">
+      <div class="main_container">
+
+        <div ng-include="'nav.html'"></div>
+
+        <!-- page content -->
+        <div class="right_col" role="main" ng-controller="aula">
+
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Panel General del <b>{{ current_place }}</b></h3>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="">
+                  <div class="x_content" >
+                    <br>
+                    <div class="row">
+
+                      <!-- Caja -->
+                      <div ng-repeat="mota in motas" class="col-md-3 col-xs-12 widget widget_tally_box">
+                        <div class="x_panel">
+                          <div class="x_title">
+                            <a href="mota.html"><button type="button" class="btn btn-info">{{ mota.name }}</button></a>
+                            <!-- Barra Superior Configuracion Caja  -->
+                            <ul class="nav navbar-right panel_toolbox">
+                              <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                              </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                          </div>
+
+                          <!-- Contenido Caja -->
+                          <div class="x_content">
+                            <div>
+                              <!-- Atributos Caja  -->
+                              <ul class="list-inline widget_tally">
+                                <li>
+                                  <p>
+                                    <span class="month">Ubicación </span>
+                                    <span class="count">{{ mota.place }}</span>
+                                  </p>
+                                </li>
+                                <li>
+                                  <p>
+                                    <span class="month">Sensores </span>
+                                    <span class="count">{{ mota.sensors }}</span>
+                                  </p>
+                                </li>
+                                <li>
+                                  <p>
+                                    <span class="month">Estado </span>
+                                    <span class="count">{{ mota.state }}</span>
+                                  </p>
+                                </li>
+                                <li>
+                                  <p>
+                                    <span class="month">Última Actulización </span>
+                                    <span class="count">{{ mota.last_update_time }}</span>
+                                  </p>
+                                </li>
+                              </ul>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <!-- fin caja -->
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <div ng-include="'footer.html'"></div>
+
+      </div>
+    </div>
+
+</body>
+</html>
