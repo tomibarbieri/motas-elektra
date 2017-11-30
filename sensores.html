@@ -73,10 +73,10 @@
                     <div class="row">
 
                       <!-- Caja -->
-                      <div ng-repeat="sensor in sensors" class="col-md-3 col-xs-12 widget widget_tally_box">
+                      <div ng-repeat="sensor in sensors_server" class="col-md-3 col-xs-12 widget widget_tally_box">
                         <div class="x_panel">
                           <div class="x_title">
-                            <a href="mota1.html"><button type="button" class="btn btn-info">{{ sensor.name }}</button></a>
+                            <a href="sensor.html"><button type="button" class="btn btn-info">{{ sensor.name }}</button></a>
                             <!-- Barra Superior Configuracion Caja  -->
                             <ul class="nav navbar-right panel_toolbox">
                               <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -93,25 +93,25 @@
                                 <li>
                                   <p>
                                     <span class="month">Ubicación </span>
-                                    <span class="count">{{ sensor.place }}</span>
+                                    <span class="count"></span>
                                   </p>
                                 </li>
                                 <li>
                                   <p>
                                     <span class="month">Mota </span>
-                                    <span class="count">{{ sensor.mota }}</span>
+                                    <span class="count">{{ sensor.mote_name }}</span>
                                   </p>
                                 </li>
                                 <li>
                                   <p>
                                     <span class="month">Estado </span>
-                                    <span class="count">{{ sensor.state }}</span>
+                                    <span class="count">{{ sensor.status }}</span>
                                   </p>
                                 </li>
                                 <li>
                                   <p>
-                                    <span class="month">Última Actulización </span>
-                                    <span class="count">{{ sensor.last_update_time }}</span>
+                                    <span class="month">Última medición </span>
+                                    <span class="count">{{ sensor.last_measure.value }}</span>
                                   </p>
                                 </li>
                               </ul>

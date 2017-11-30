@@ -1,57 +1,38 @@
 
 var json;
 var gaugechart;
-var curr;
+var curr; // en esta variable se guarda el valor a mostrar
 var time;
 var state = "on";
 var tension = 215; //La tensión puede variar
 var consumo = [];
 
-//Web Socket comunication
-//Connect to server
-//var ws = new WebSocket("ws://192.168.43.125:8888/websocket");
+setTimeout(function(){
+  // conexion real time con el servidor
+  var id_sensor = document.getElementById('sensor-name').innerHTML;
+  console.log(id_sensor);
+  var es = new EventSource("http://192.168.0.238:9292/" + id_sensor);
+  //var es = new EventSource("http://localhost:9292/a911");
+  console.log(es);
 
+  es.onmessage = function(e) {
+    json = JSON.parse(e.data);
+    console.log(json.value);
+    curr = json.value;
+  };
 
-//var es = new EventSource("http://192.168.0.239:9292/a911");
-//var es = new EventSource("http://localhost:9292/a911");
-/*es.onmessage = function(e) {
-  //var newElement = document.createElement("li");
-  console.log(e.data);
-  //newElement.textContent = "message: " + e.data;
-  //eventList.appendChild(newElement);
-}*/
-//console.log(ws);
-
-//Open the socket and say hi
-/*ws.onopen = function() {
-  ws.send("Hello, world");
-};*/
-
-//Receive message form server
-/*ws.onmessage = function (evt) {
-  console.log("EVTDATA: " + evt.data);
-  //json = JSON.parse(evt.data);
-  //console.log(json);
-
-  json = JSON.parse(evt.data);
-  console.log("JSON:" + json);
-  curr = json.data;
-  state = json.estado;
-  //timestamp = json.timestamp;
-  console.log("curr: " + curr);
-
-  curr = parseFloat(curr);
-
-};*/
-
+  es.onerror = function() {
+    es.close();
+  };
+},3000)
 
 function on() {
   //alert("ON");
-  ws.send(JSON.stringify({"relay1":1}));
+  //ws.send(JSON.stringify({"relay1":1}));
 };
 function off() {
   //alert("OFF");
-  ws.send(JSON.stringify({"relay1":0}));
+  //ws.send(JSON.stringify({"relay1":0}));
 };
 
 $(function () {

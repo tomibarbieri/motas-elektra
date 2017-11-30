@@ -1,6 +1,21 @@
 var app = angular.module('elektra', []);
 
-app.controller('home', function($scope) {
+app.controller('home', function($scope, $http) {
+
+    $http({
+        method:'GET',
+        url: 'http://192.168.0.238:9292/sensor',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(response){
+
+        console.log(response);
+        $scope.aulas_server = response.data;
+
+    }, function(response){
+        console.log("problemas de conexion");
+    });
 
     // get full aulas from server
     $scope.aulas = [{
@@ -11,6 +26,19 @@ app.controller('home', function($scope) {
       'name': 'Aula 3'
     }];
 
+  /*  $http({
+        method:'GET',
+        url: 'localhost:9292/sensor',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(response){
+        $scope.motas_server = response.data;
+        console.log(response);
+    }, function(response){
+        console.log("problemas de conexion");
+    });
+*/
     // get full motas from server
     $scope.motas = [{
       'name': 'Mota 1'
@@ -29,6 +57,18 @@ app.controller('home', function($scope) {
 
 .controller('aulas', function($scope) {
 
+    $http({
+        method:'GET',
+        url: 'localhost:9292/places',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(response){
+        $scope.aulas_server = response.data;
+        console.log(response);
+    }, function(response){
+        console.log("problemas de conexion");
+    });
     // get full aulas from server
     $scope.aulas = [{
       'name': 'Aula 1',
@@ -145,9 +185,26 @@ app.controller('home', function($scope) {
 
 })
 
-.controller('sensores', function($scope) {
+
+.controller('sensores', function($scope,$http) {
 
     // get motas for place from server
+
+    $http({
+        method:'GET',
+        url: 'http://192.168.0.238:9292/sensor',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(response){
+
+        console.log(response.data);
+        $scope.sensors_server = response.data;
+
+    }, function(response){
+        console.log("problemas de conexion");
+    });
+
     $scope.sensors = [{
       'name': 'Sensor 1',
       'mota': 'Mota 1',
@@ -191,6 +248,7 @@ app.controller('home', function($scope) {
     // get sensor for mota from server
     $scope.sensor = {
       'name': 'Sensor 1',
+      'id' : 'a911',
       'mota': 'Mota 1',
       'place': 'Aula 1',
       'last_update_time': '12:22',
@@ -204,6 +262,8 @@ app.controller('home', function($scope) {
 
     // get current_sensor from parameter
     $scope.current_sensor = 'Sensor 1';
+
+    // http://192.168.0.238:9292/sensor/a911/lapse/from/2016-08-01T01:00:00+03:00/to/2016-08-01T03:00:00+03:00/precision/hour
 
     $scope.sensors = [{
       'name': 'Sensor 1',
